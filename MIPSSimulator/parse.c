@@ -20,7 +20,7 @@ instruction parsing_instr(const char *buffer, const int index)
 {
     instruction instr;
 	/** Implement this function */
-    return instr;
+    //return instr;
 }
 
 void parsing_data(const char *buffer, const int index)

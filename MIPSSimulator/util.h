@@ -22,6 +22,8 @@
 #include <string.h>
 #include <stdint.h>
 
+#pragma warning(disable:4996)
+
 #define FALSE 0
 #define TRUE  1
 
