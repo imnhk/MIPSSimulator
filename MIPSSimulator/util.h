@@ -51,18 +51,18 @@ typedef struct inst_s {
     union {
         /* R-type or I-type: */
         struct {
-	    unsigned char rs;
-	    unsigned char rt;
+		    unsigned char rs;
+		    unsigned char rt;
 
-	    union {
-	        short imm;
+		    union {
+		        short imm;
 
-	        struct {
-		    unsigned char rd;
-		    unsigned char shamt;
-		} r;
-	    } r_i;
-	} r_i;
+		        struct {
+			    unsigned char rd;
+			    unsigned char shamt;
+			} r;
+		    } r_i;
+		} r_i;
         /* J-type: */
         uint32_t target;
     } r_t;

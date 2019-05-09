@@ -18,9 +18,65 @@ int data_size;
 
 instruction parsing_instr(const char *buffer, const int index)
 {
-    instruction instr;
 	/** Implement this function */
-    //return instr;
+    instruction instr;
+	char temp[33];
+	int i; // for loop
+
+	for (i = 0; i < 6; i++) 
+		temp[i] = buffer[i];
+	temp[i] = '\0';
+	instr.opcode = fromBinary(temp);
+
+	// TYPE J
+	if (instr.opcode == 0x2 || instr.opcode == 0x3) {
+		for (i = 6; i < 32; i++)
+			temp[i - 6] = buffer[i];
+		temp[i-6] = '\0';
+
+		instr.r_t.target = fromBinary(temp);
+
+		return instr;
+	}
+
+	for (i = 6; i < 11; i++)
+		temp[i - 6] = buffer[i];
+	temp[i-6] = '\0';
+	instr.r_t.r_i.rs = fromBinary(temp);
+
+	for (i = 11; i < 16; i++)
+		temp[i - 11] = buffer[i];
+	temp[i-11] = '\0';
+	instr.r_t.r_i.rt = fromBinary(temp);
+
+	// TYPE R
+	if (instr.opcode == 0x0) {
+		for (i = 16; i < 21; i++)
+			temp[i - 16] = buffer[i];
+		temp[i-16] = '\0';
+		instr.r_t.r_i.r_i.r.rd = fromBinary(temp);
+
+		for (i = 21; i < 26; i++)
+			temp[i - 21] = buffer[i];
+		temp[i-21] = '\0';
+		instr.r_t.r_i.r_i.r.shamt = fromBinary(temp);
+
+		for (i = 26; i < 32; i++)
+			temp[i - 26] = buffer[i];
+		temp[i-26] = '\0';
+		instr.func_code = fromBinary(temp);
+
+		return instr;
+	}
+	// TYPE I
+	else {
+		for (i = 16; i < 32; i++)
+			temp[i - 16] = buffer[i];
+		temp[i-16] = '\0';
+		instr.r_t.r_i.r_i.imm = fromBinary(temp);
+
+		return instr;
+	}
 }
 
 void parsing_data(const char *buffer, const int index)

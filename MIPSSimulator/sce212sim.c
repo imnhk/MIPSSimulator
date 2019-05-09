@@ -87,7 +87,7 @@ void load_program(char *program_filename) {
     }
 
     CURRENT_STATE.PC = MEM_TEXT_START;
-    //printf("Read %d words from program into memory.\n\n", ii/4);
+    printf("Read %d words from program into memory.\n\n", ii/4);
 }
 
 /************************************************************/
@@ -132,7 +132,7 @@ int main(int argc, char *argv[]) {
     initialize(argv[argc-1]);
 
     //for checking parse result
-    //print_parse_result();
+    print_parse_result();
 
     while (count != argc-1) {
 
