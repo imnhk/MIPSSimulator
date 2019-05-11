@@ -166,7 +166,7 @@ void cycle() {
     INSTRUCTION_COUNT++;
 
     //for debug
-    //printf("%2d - Current PC: %x\n", INSTRUCTION_COUNT, CURRENT_STATE.PC);
+    printf("%2d - Current PC: %x\n", INSTRUCTION_COUNT, CURRENT_STATE.PC);
 }
 
 /***************************************************************/

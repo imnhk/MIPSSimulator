@@ -1,3 +1,8 @@
 
 *.ipch
 *.idb
+*.opendb
+*.ipch
+MIPSSimulator/.vs/MIPSSimulator/v16/.suo
+*.ipch
+*.tlog

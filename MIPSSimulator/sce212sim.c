@@ -66,7 +66,7 @@ void load_program(char *program_filename) {
 
             //check data segment size
             data_size = fromBinary(buffer);
-            //initial memory allocation of data segment
+            //initial memory allocation of data segmentg
             //if you would like to add data, you can re-allocate memory.
             /* data_seg = malloc(sizeof(uint32_t)*(data_size/4)); */
 
@@ -132,7 +132,7 @@ int main(int argc, char *argv[]) {
     initialize(argv[argc-1]);
 
     //for checking parse result
-    print_parse_result();
+    //print_parse_result();
 
     while (count != argc-1) {
 

@@ -1,3 +1,4 @@
-﻿  parse.c
-D:\문서\GitHub\MIPSSimulator\MIPSSimulator\parse.c(86): warning C4090: '함수': 'const' 한정자가 서로 다릅니다.
+﻿  sce212sim.c
+D:\문서\GitHub\MIPSSimulator\MIPSSimulator\sce212sim.c(35): warning C4101: 'word' :참조되지 않은 지역 변수입니다.
+D:\문서\GitHub\MIPSSimulator\MIPSSimulator\sce212sim.c(102): warning C4101: 'i' :참조되지 않은 지역 변수입니다.
   MIPSSimulator.vcxproj -> D:\문서\GitHub\MIPSSimulator\MIPSSimulator\Debug\MIPSSimulator.exe

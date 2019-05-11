@@ -82,7 +82,7 @@ instruction parsing_instr(const char *buffer, const int index)
 void parsing_data(const char *buffer, const int index)
 {
 	/** Implement this function */
-	printf("%s, %d\n", buffer, index);
+	//printf("%s, %d\n", buffer, MEM_DATA_START+index);
 	mem_write_32(MEM_DATA_START+index, fromBinary(buffer));
 }
 
