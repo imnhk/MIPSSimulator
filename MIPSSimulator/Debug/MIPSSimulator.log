@@ -1,2 +1,3 @@
 ﻿  parse.c
+D:\문서\GitHub\MIPSSimulator\MIPSSimulator\parse.c(86): warning C4090: '함수': 'const' 한정자가 서로 다릅니다.
   MIPSSimulator.vcxproj -> D:\문서\GitHub\MIPSSimulator\MIPSSimulator\Debug\MIPSSimulator.exe
