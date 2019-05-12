@@ -41,7 +41,7 @@ void process_instruction()
 	
 	if (OPCODE(instr) == 0x0) {
 
-		// TYPE dd
+		// TYPE R
 		switch (FUNC(instr)) {
 		case 0x21:	// ADD U
 			printf("ADDU :$%d = $%d + $%d \n", RD(instr), RS(instr), RT(instr));
@@ -61,7 +61,8 @@ void process_instruction()
 			CURRENT_STATE.REGS[RD(instr)] = CURRENT_STATE.REGS[RS(instr)] | CURRENT_STATE.REGS[RT(instr)];
 			break;
 		case 0x2b:	// SLT U
-
+			printf("SLTU :$%d = ($%d < $%d) ? 1:0 \n", RD(instr), RS(instr), RT(instr));
+			CURRENT_STATE.REGS[RD(instr)] = (CURRENT_STATE.REGS[RS(instr)] < CURRENT_STATE.REGS[RT(instr)]) ? 1 : 0;
 			break;
 		case 0x00:	// SLL
 			printf("SLL :$%d = $%d << ($%d)shamt \n", RD(instr), RT(instr), SHAMT(instr));
@@ -90,7 +91,9 @@ void process_instruction()
 				printf("	$%d = %d\n", RT(instr), CURRENT_STATE.REGS[RT(instr)]);
 				break;
 			case 0xc:		//(0x001100)ANDI
-
+				printf("ANDI :$%d = $%d & $%d \n", RD(instr), RS(instr), IMM(instr));
+				CURRENT_STATE.REGS[RT(instr)] = CURRENT_STATE.REGS[RS(instr)] & IMM(instr);
+				printf("	$%d = %d\n", RT(instr), CURRENT_STATE.REGS[RT(instr)]);
 				break;
 			case 0xf:		//(0x001111)LUI, Load Upper Imm.
 				printf("LUI :%d = %d \n", RT(instr), IMM(instr));
@@ -101,7 +104,9 @@ void process_instruction()
 				CURRENT_STATE.REGS[RT(instr)] = CURRENT_STATE.REGS[RS(instr)] | IMM(instr);
 				break;
 			case 0xb:		//(0x001011)SLTIU
-
+				printf("SLTIU :$%d = ($%d < $%d) ? 1:0 \n", RT(instr), RS(instr), IMM(instr));
+				CURRENT_STATE.REGS[RT(instr)] = (CURRENT_STATE.REGS[RS(instr)] < IMM(instr)) ? 1 : 0;
+				printf("	$%d = %d\n", RT(instr), CURRENT_STATE.REGS[RT(instr)]);
 				break;
 			case 0x23:		//(0x100011)LW
 
@@ -125,8 +130,8 @@ void process_instruction()
 				printf("J :PC = PC[31:28] strcat [%d(imm) * 4] \n", TARGET(instr));
 				uint32_t PC_addr = CURRENT_STATE.PC;
 				PC_addr = PC_addr & 0xf0000000; //PC[31:28]
-				printf("PCadder %d, target: %d\n", PC_addr, TARGET(instr));
-				//CURRENT_STATE.PC = PC_addr + TARGET(instr)*4;
+				//printf("PCadder %d, target: %d\n", PC_addr, TARGET(instr));
+				CURRENT_STATE.PC = PC_addr + TARGET(instr)*4;
 				break;
 			case 0x3:		//(0x000011)JAL
 
