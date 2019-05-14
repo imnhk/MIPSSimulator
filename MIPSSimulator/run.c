@@ -54,7 +54,6 @@ void process_instruction()
 		case 0x27:	// NOR
 			printf("NOR :$%d = ~($%d | $%d) \n", RD(instr), RS(instr), RT(instr));
 			CURRENT_STATE.REGS[RD(instr)] = ~(CURRENT_STATE.REGS[RS(instr)] | CURRENT_STATE.REGS[RT(instr)]);
-
 			break;
 		case 0x25:	// OR
 			printf("OR :$%d = $%d | $%d \n", RD(instr), RS(instr), RT(instr));
@@ -78,6 +77,9 @@ void process_instruction()
 			break;
 		default:
 			printf("ERROR: Check process_instruction() TYPE R func_code\m");
+			RUN_BIT = FALSE;
+			CURRENT_STATE.PC -= 4;
+
 		}
 		printf("	$%d = %d\n", RD(instr), CURRENT_STATE.REGS[RD(instr)]);
 	}
@@ -109,10 +111,13 @@ void process_instruction()
 				printf("	$%d = %d\n", RT(instr), CURRENT_STATE.REGS[RT(instr)]);
 				break;
 			case 0x23:		//(0x100011)LW
-
+				printf("LW :$%d = M[0x%8x + %d] \n", RT(instr), CURRENT_STATE.REGS[RS(instr)], IMM(instr));
+				CURRENT_STATE.REGS[RT(instr)] = mem_read_32(CURRENT_STATE.REGS[RS(instr)] + IMM(instr));
+				printf("$%d is now %d\n", RT(instr), CURRENT_STATE.REGS[RT(instr)]);
 				break;
 			case 0x2b:		//(0x101011)SW
-
+				printf("SW :M[0x%8x + %d] = $%d \n", CURRENT_STATE.REGS[RS(instr)], IMM(instr), RT(instr));
+				mem_write_32(CURRENT_STATE.REGS[RS(instr)] + IMM(instr), CURRENT_STATE.REGS[RT(instr)]);
 				break;
 			case 0x4:		//(0x000100)BEQ
 				printf("BEQ :if($%d == $%d) goto PC + %d(*4) \n", RS(instr), RT(instr), IMM(instr));
@@ -139,6 +144,9 @@ void process_instruction()
 
 			default:
 				printf("ERROR: Check process_instruction() TYPE I,, J opcode\n");
+				RUN_BIT = FALSE;
+				CURRENT_STATE.PC-= 4;
+
 		}
 	}
 }
