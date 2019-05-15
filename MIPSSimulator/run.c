@@ -45,112 +45,108 @@ void process_instruction()
 		// TYPE R
 		switch (FUNC(instr)) {
 		case 0x21:	// ADD U
-			printf("ADDU :$%d = $%d + $%d \n", RD(instr), RS(instr), RT(instr));
+			//printf("ADDU :$%d = $%d + $%d \n", RD(instr), RS(instr), RT(instr));
 			CURRENT_STATE.REGS[RD(instr)] = CURRENT_STATE.REGS[RS(instr)] + CURRENT_STATE.REGS[RT(instr)];
 			break;
 		case 0x24:	// AND
-			printf("AND :$%d = $%d & $%d \n", RD(instr), RS(instr), RT(instr));
+			//printf("AND :$%d = $%d & $%d \n", RD(instr), RS(instr), RT(instr));
 			CURRENT_STATE.REGS[RD(instr)] = CURRENT_STATE.REGS[RS(instr)] & CURRENT_STATE.REGS[RT(instr)];
 			break;
 		case 0x27:	// NOR
-			printf("NOR :$%d = ~($%d | $%d) \n", RD(instr), RS(instr), RT(instr));
+			//printf("NOR :$%d = ~($%d | $%d) \n", RD(instr), RS(instr), RT(instr));
 			CURRENT_STATE.REGS[RD(instr)] = ~(CURRENT_STATE.REGS[RS(instr)] | CURRENT_STATE.REGS[RT(instr)]);
 			break;
 		case 0x25:	// OR
-			printf("OR :$%d = $%d | $%d \n", RD(instr), RS(instr), RT(instr));
+			//printf("OR :$%d = $%d | $%d \n", RD(instr), RS(instr), RT(instr));
 			CURRENT_STATE.REGS[RD(instr)] = CURRENT_STATE.REGS[RS(instr)] | CURRENT_STATE.REGS[RT(instr)];
 			break;
 		case 0x2b:	// SLT U
-			printf("SLTU :$%d = ($%d < $%d) ? 1:0 \n", RD(instr), RS(instr), RT(instr));
+			//printf("SLTU :$%d = ($%d < $%d) ? 1:0 \n", RD(instr), RS(instr), RT(instr));
 			CURRENT_STATE.REGS[RD(instr)] = (CURRENT_STATE.REGS[RS(instr)] < CURRENT_STATE.REGS[RT(instr)]) ? 1 : 0;
 			break;
 		case 0x00:	// SLL
-			printf("SLL :$%d = $%d << ($%d)shamt \n", RD(instr), RT(instr), SHAMT(instr));
+			//printf("SLL :$%d = $%d << ($%d)shamt \n", RD(instr), RT(instr), SHAMT(instr));
 			CURRENT_STATE.REGS[RD(instr)] = CURRENT_STATE.REGS[RT(instr)] << SHAMT(instr);
 			break;
 		case 0x02:	// SRL
-			printf("SRL :$%d = $%d >> ($%d)shamt \n", RD(instr), RT(instr), SHAMT(instr));
+			//printf("SRL :$%d = $%d >> ($%d)shamt \n", RD(instr), RT(instr), SHAMT(instr));
 			CURRENT_STATE.REGS[RD(instr)] = CURRENT_STATE.REGS[RT(instr)] >> SHAMT(instr);
 			break;
 		case 0x23:	// SUB U
-			printf("SUBU :$%d = $%d - $%d \n", RD(instr), RS(instr), RT(instr));
+			//printf("SUBU :$%d = $%d - $%d \n", RD(instr), RS(instr), RT(instr));
 			CURRENT_STATE.REGS[RD(instr)] = CURRENT_STATE.REGS[RS(instr)] - CURRENT_STATE.REGS[RT(instr)];
 			break;
 		case 0x08:	//JR
-			printf("JR : PC = 0x%x \n", CURRENT_STATE.REGS[RS(instr)]);
+			//printf("JR : PC = 0x%x \n", CURRENT_STATE.REGS[RS(instr)]);
 			CURRENT_STATE.PC = CURRENT_STATE.REGS[RS(instr)];
 			break;
 		default:
-			printf("ERROR: Check process_instruction() TYPE R func_code\m");
+			//printf("ERROR: Check process_instruction() TYPE R func_code\m");
 			RUN_BIT = FALSE;
 			CURRENT_STATE.PC -= 4;
 
 		}
-		printf("	$%d = %d\n", RD(instr), CURRENT_STATE.REGS[RD(instr)]);
 	}
 	else {
 		switch (OPCODE(instr)) {
 
 			// TYPE I
 			case 0x9:		//(0x001001)ADDIU
-				printf("ADDIU :$%d = $%d + %d \n", RT(instr), RS(instr), IMM(instr));
+				//printf("ADDIU :$%d = $%d + %d \n", RT(instr), RS(instr), IMM(instr));
 				CURRENT_STATE.REGS[RT(instr)] = CURRENT_STATE.REGS[RS(instr)] + IMM(instr);
 				break;
 			case 0xc:		//(0x001100)ANDI
-				printf("ANDI :$%d = $%d & $%d \n", RD(instr), RS(instr), IMM(instr));
+				//printf("ANDI :$%d = $%d & $%d \n", RD(instr), RS(instr), IMM(instr));
 				CURRENT_STATE.REGS[RT(instr)] = CURRENT_STATE.REGS[RS(instr)] & IMM(instr);
 				break;
 			case 0xf:		//(0x001111)LUI, Load Upper Imm.
-				printf("LUI :%d = %d \n", RT(instr), IMM(instr));
+				//printf("LUI :%d = %d \n", RT(instr), IMM(instr));
 				CURRENT_STATE.REGS[RT(instr)] = IMM(instr) * 65536; // 16^4
 				break;
 			case 0xd:		//(0x001101)ORI
-				printf("ORI :%d = %d or %d \n", RT(instr), RS(instr), IMM(instr));
+				//printf("ORI :%d = %d or %d \n", RT(instr), RS(instr), IMM(instr));
 				CURRENT_STATE.REGS[RT(instr)] = CURRENT_STATE.REGS[RS(instr)] | IMM(instr);
 				break;
 			case 0xb:		//(0x001011)SLTIU
-				printf("SLTIU :$%d = ($%d < $%d) ? 1:0 \n", RT(instr), RS(instr), IMM(instr));
+				//printf("SLTIU :$%d = ($%d < $%d) ? 1:0 \n", RT(instr), RS(instr), IMM(instr));
 				CURRENT_STATE.REGS[RT(instr)] = (CURRENT_STATE.REGS[RS(instr)] < IMM(instr)) ? 1 : 0;
-				printf("	$%d = %d\n", RT(instr), CURRENT_STATE.REGS[RT(instr)]);
 				break;
 			case 0x23:		//(0x100011)LW
-				printf("LW :$%d = M[0x%8x + %d] \n", RT(instr), CURRENT_STATE.REGS[RS(instr)], IMM(instr));
+				//printf("LW :$%d = M[0x%8x + %d] \n", RT(instr), CURRENT_STATE.REGS[RS(instr)], IMM(instr));
 				CURRENT_STATE.REGS[RT(instr)] = mem_read_32(CURRENT_STATE.REGS[RS(instr)] + IMM(instr));
 				break;
 			case 0x2b:		//(0x101011)SW
-				printf("SW :M[0x%8x + %d] = $%d \n", CURRENT_STATE.REGS[RS(instr)], IMM(instr), RT(instr));
+				//printf("SW :M[0x%8x + %d] = $%d \n", CURRENT_STATE.REGS[RS(instr)], IMM(instr), RT(instr));
 				mem_write_32(CURRENT_STATE.REGS[RS(instr)] + IMM(instr), CURRENT_STATE.REGS[RT(instr)]);
 				break;
 			case 0x4:		//(0x000100)BEQ
-				printf("BEQ :if($%d == $%d) goto PC + %d(*4) \n", RS(instr), RT(instr), IMM(instr));
+				//printf("BEQ :if($%d == $%d) goto PC + %d(*4) \n", RS(instr), RT(instr), IMM(instr));
 				if (CURRENT_STATE.REGS[RS(instr)] == CURRENT_STATE.REGS[RT(instr)])
 					CURRENT_STATE.PC += 4*IMM(instr);
 				break;
 			case 0x5:		//(0x000101)BNE
-				printf("BNE :if($%d != $%d) goto PC + %d(*4) \n", RS(instr), RT(instr), IMM(instr));
+				//printf("BNE :if($%d != $%d) goto PC + %d(*4) \n", RS(instr), RT(instr), IMM(instr));
 				if (CURRENT_STATE.REGS[RS(instr)] != CURRENT_STATE.REGS[RT(instr)])
 					CURRENT_STATE.PC += 4*IMM(instr);
 				break;
 			
 			// TYPE J
 			case 0x2:		//J
-				printf("J :PC = PC[31:28] strcat [0x%x(imm) * 4] \n", TARGET(instr));
+				//printf("J :PC = PC[31:28] strcat [0x%x(imm) * 4] \n", TARGET(instr));
 				PC_addr = CURRENT_STATE.PC;
 				PC_addr = PC_addr & 0xf0000000; //PC[31:28]
-				//printf("PCadder %d, target: %d\n", PC_addr, TARGET(instr));
 				CURRENT_STATE.PC = PC_addr + TARGET(instr)*4;
 				break;
 			case 0x3:		//JAL
-				printf("JAL :R[31]=PC+4, J to 0x%x(imm)*4 \n", TARGET(instr));
+				//printf("JAL :R[31]=PC+4, J to 0x%x(imm)*4 \n", TARGET(instr));
 				CURRENT_STATE.REGS[31] = CURRENT_STATE.PC+4;
-				printf("$ra = 0x%x\n", CURRENT_STATE.REGS[31]);
 				PC_addr = CURRENT_STATE.PC;
 				PC_addr = PC_addr & 0xf0000000; //PC[31:28]
 				CURRENT_STATE.PC = PC_addr + TARGET(instr) * 4;
 				break;
 
 			default:
-				printf("ERROR: Check process_instruction() TYPE I,, J opcode\n");
+				//printf("ERROR: Check process_instruction() TYPE I,, J opcode\n");
 				RUN_BIT = FALSE;
 				CURRENT_STATE.PC-= 4;
 

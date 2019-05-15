@@ -22,7 +22,7 @@ instruction parsing_instr(const char *buffer, const int index)
     instruction instr;
 	char temp[33];
 	int i; // for loop
-
+	
 	for (i = 0; i < 6; i++) 
 		temp[i] = buffer[i];
 	temp[i] = '\0';
